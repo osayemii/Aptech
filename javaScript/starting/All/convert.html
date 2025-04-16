@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Converter</title>
+    </head>
+
+    <body>
+        <select name="" id="converter" onchange="clearDisplay()">
+            <option value="">Choose your Option</option>
+            <option value="Dollar to Naira">Dollar to Naira</option>
+            <option value="Euro to Naira">Euro to Naira</option>
+            <option value="Centimeter to Meter">Centimeter to Meter</option>
+            <option value="Minutes to Hour">Minutes to Hour</option>
+            <option value="Liters to milliliters">Liters to milliliters</option>
+            <option value="Miles to Kilometer">Miles to Kilometer</option>
+            <option value="Gram to Kilogram">Gram to Kilogram</option>
+            <option value="Kelvin to Degree celcius">Kelvin to Degree celcius</option>
+            <option value="Kilogram to tonnes">Kilogram to tonnes</option>
+            <option value="Decimal to Percentage">Decimal to Percentage</option>
+        </select>
+
+        <input type="text" placeholder="Enter your value" id="convertNum" onkeyup="myConverter()">
+
+        <h1 id="displayResult">This is result</h1>
+        <br>
+        <br>
+
+        <script>
+            // Function to clear the display when the converter changes
+            function clearDisplay() {
+                let display = document.getElementById("displayResult");
+                let inputValue = document.getElementById("convertNum");
+                display.innerHTML = 0; // Reset display text
+                inputValue.value = ""; // Clear the input field
+                console.log("Display and input cleared");
+            }
+
+            function myConverter() {
+                let converterId = document.getElementById("converter").value;
+                let getValue = parseFloat(document.getElementById("convertNum").value);
+                let display = document.getElementById("displayResult");
+                console.log(converterId);
+                
+                if (converterId === 'Dollar to Naira') {
+                    let result = (getValue * 1499.52).toLocaleString();
+                    console.log(result);
+                    display.innerHTML = "₦ " + result;
+                }
+                else if (converterId === 'Euro to Naira') {
+                    let result = (getValue * 1568.20).toLocaleString();
+                    console.log(result);
+                    display.innerHTML = "₦ " + result;
+                }
+                else if (converterId === 'Centimeter to Meter') {
+                    let result = (getValue / 100).toLocaleString();
+                    console.log(result);
+                    display.innerHTML = result + " m";
+                }
+                else if (converterId === 'Minutes to Hour') {
+                    let result = (getValue / 60).toLocaleString();
+                    console.log(result);
+                    display.innerHTML = result + " hrs";
+                }
+                else if (converterId === 'Liters to milliliters') {
+                    let result = (getValue * 1000).toLocaleString();
+                    console.log(result);
+                    display.innerHTML = result + " ml";
+                }
+                else if (converterId === 'Miles to Kilometer') {
+                    let result = (getValue * 1.60934).toLocaleString();
+                    console.log(result);
+                    display.innerHTML = result + " km";
+                }
+                else if (converterId === 'Gram to Kilogram') {
+                    let result = (getValue * 0.001).toLocaleString();
+                    console.log(result);
+                    display.innerHTML = result + " kg";
+                }
+                else if (converterId === 'Kelvin to Degree celcius') {
+                    let result = (getValue - 273.15).toLocaleString() + "°";
+                    console.log(result);
+                    display.innerHTML = result;
+                }
+                else if (converterId === 'Kilogram to tonnes') {
+                    let result = (getValue / 907.2).toLocaleString();
+                    console.log(result);
+                    display.innerHTML = result;
+                }
+                else if (converterId === 'Decimal to Percentage') {
+                    let result = (getValue * 100).toLocaleString();
+                    console.log(result);
+                    display.innerHTML = result + "%";
+                }
+                else {
+                    display.innerHTML = "Error";
+                    console.log("Error");
+                }
+            }
+        </script>
+
+    </body>
+</html>

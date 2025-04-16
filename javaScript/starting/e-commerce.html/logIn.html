@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to our store</h1>
+        <div class="content">
+
+            <label for="">Email Address</label>
+            <input type="text" id="email" placeholder="Input your Email" autocomplete="on"> <br> <br>
+
+            <label for="">Password</label>
+            <input type="password" id="password" placeholder="Input your Password" autocomplete="on"> <br> <br>
+            
+            <br><button onclick="signIn()">Submit</button><br><br>
+            <div class="no-account" style="display: flex; width: 70%; color: #fff; margin: 0 auto;">
+                <span>Don't have an account?<a href="sign-up.html" style="text-decoration: underline;">Sign Up</a></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let mainUser = JSON.parse(localStorage.getItem("E - commerce")) || []
+
+        function signIn() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let userLoginIndex = mainUser.findIndex((check)=>check.email === email && check.Password === password)
+            console.log(userLoginIndex)
+
+            if (userLoginIndex < 0 ||email === "" || password === "") {
+                alert("Invalid login details, pls try again")
+            } else{
+                sessionStorage.setItem("Login", userLoginIndex)
+                window.location.href = "userHome.html"
+            }
+        }
+
+
+    </script>
+</body>
+</html>

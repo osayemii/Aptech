@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Methods</title>
+    </head>
+
+    <body>
+        
+
+
+        <script>
+            arr = ["Michael", "Omotayo", "Dennis", "Favour", "Daniel", "Jenny"]
+            console.log(arr.concat("peter"))
+            console.log(arr.indexOf("Dennis"))
+            console.log(arr.includes("James"))
+
+            allUser = []
+            let user1 = { name: "Mike", department: "Software Engineering", age: "12", gender: "Male" }
+            let user2 = { name: "Tayo", department: "English Language", age: "20", gender: "Female" }
+            let user3 = { name: "Jennifer", department: "Linguistic", age: "22", gender: "Male" }
+            let user4 = { name: "Daniel", department: "Computer Science", age: "24", gender: "Female" }
+
+            allUser.push(user1, user2, user3, user4)
+            console.log(allUser)
+            console.log(allUser.find((item) =>item.name == "Daniel")) // object
+            console.log(allUser.findIndex((item) =>item.name == "Daniel")) // index
+            console.log(allUser.filter((item) =>item.name == "Daniel")) // remove object
+        </script>
+    </body>
+</html>

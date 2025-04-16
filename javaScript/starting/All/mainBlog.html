@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        header {
+            /* position: fixed; */
+            background-color: #333;
+            width: 100%;
+            padding: 15px 0;
+            text-align: center;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        section {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            /* margin-top: 80px; */
+            flex-wrap: wrap;
+        }
+        .create, .post, .view {
+            max-width: 30%;
+            min-width: 30%;
+            background: #fff;
+            padding: 20px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .post {
+            overflow-y: auto; /* Make the post section scrollable */
+            max-height: 500px; /* Limit the height of the post section */
+        }
+        textarea, input[type="file"], button {
+            max-width: 90%;
+            min-width: 90%;
+            max-height: 50px;
+            min-height: 50px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        textarea:focus, input[type="file"]:focus, button:focus {
+            outline: none;
+        }
+        .buttonFile {
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .post-item {
+            text-align: left;
+            margin: 10px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .post-item button {
+            margin: 5px;
+            padding: 5px;
+            font-size: 14px;
+        }
+        .view {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            max-height: 500px;
+        }
+        .view.active {
+            display: flex;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .buttons .bot{
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            max-width: 25%;
+            min-width: 25%;
+        }
+        .p{
+            max-width: 280px;
+            min-width: 280px;
+            margin: 0 auto;
+            text-align: left;
+            /* text-wrap: wrap; */
+        }
+        .p p{
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .p strong{
+            word-wrap: break-word;
+            width: 280px;
+            text-align: center;
+            margin: 0 auto;
+            overflow-wrap: break-word;
+        }
+        .view{
+            padding: 15px;
+            align-items: flex-start;
+        }
+        #view-content {
+            word-wrap: break-word;
+            width: 280px;
+            text-align: justify;
+            margin: 0 auto;
+            overflow-wrap: break-word;
+        }
+        #view-title {
+            word-wrap: break-word;
+            width: 280px;
+            text-align: center;
+            margin: 0 auto;
+            overflow-wrap: break-word;
+        }
+        #view-image {
+            max-width: 80%;
+            margin: 0 auto;
+            height: auto;
+        }       
+    </style>
+</head>
+<body>
+    <header>Welcome to My Blog</header>
+    <section>
+        <div class="create" style="min-height: 400px; max-height: 400px;">
+            <h2>Create or Edit Post</h2>
+            <textarea id="title" placeholder="Enter post title"></textarea>
+            <textarea id="content" placeholder="Write your content here"></textarea>
+            <input type="file" id="myFile" accept="image/*"><br>
+            <button onclick="submitPost()">Post</button>
+        </div>
+
+        <div class="post" style="min-height: 400px; max-height: 400px;">
+            <h2>Posted Blogs</h2>
+            <div id="post-list">
+                <!-- Dynamic posts will appear here -->
+            </div>
+        </div>
+
+        <div class="view" style="min-height: 400px; max-height: 400px;">
+            <h2 id="view-title">Title</h2>
+            <img id="view-image" src="" alt="" style="max-width: 100%; margin: 20px 0;">
+            <p id="view-content">Content</p>
+            <button onclick="closeView()">Close</button>
+        </div>
+    </section>
+
+    <script>
+        let posts = JSON.parse(localStorage.getItem('posts')) || [];
+        let editIndex = null;
+
+        function submitPost() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const imageFile = document.getElementById('myFile').files[0];
+
+            let imageUrl = '';
+            if (imageFile) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    imageUrl = e.target.result;
+                    savePost(title, content, imageUrl);
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                savePost(title, content, imageUrl);
+            }
+        }
+
+        function savePost(title, content, imageUrl) {
+            if (!title || !content) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            if (editIndex !== null) {
+                posts[editIndex] = { title, content, image: imageUrl };
+                editIndex = null; // Reset edit index after saving
+            } else {
+                posts.push({ title, content, image: imageUrl });
+            }
+
+            localStorage.setItem('posts', JSON.stringify(posts));
+            renderPosts();
+            clearForm();
+        }
+
+        // Load initial posts from localStorage
+        function renderPosts() {
+            const postList = document.getElementById('post-list');
+            postList.innerHTML = '';
+            posts.forEach((post, index) => {
+                const postItem = document.createElement('div');
+                postItem.className = 'post-item';
+                postItem.innerHTML = `
+                    <div class="p">
+                        <strong>${post.title}</strong>
+                        <img src="${post.image}" alt="Image" style="max-height: 150px; max-width: 100%; border-radius: 5px; margin: 10px auto;"><br>
+                        <p style="width: 100%">${post.content}</p>
+                    </div>
+                    <div class="buttons">
+                        <button class="bot" onclick="viewPost(${index})">View</button>
+                        <button class="bot" onclick="editPost(${index})">Edit</button>
+                        <button class="bot" onclick="deletePost(${index})">Delete</button>
+                    </div>
+                `;
+                postList.appendChild(postItem);
+            });
+        }
+
+        function viewPost(index) {
+            const post = posts[index];
+            document.querySelector('.view').classList.add('active');
+            document.getElementById('view-title').textContent = post.title;
+            document.getElementById('view-content').textContent = post.content;
+            document.getElementById('view-image').src = post.image || '';
+        }
+
+        function closeView() {
+            document.querySelector('.view').classList.remove('active');
+        }
+
+        function editPost(index) {
+            const post = posts[index];
+            document.getElementById('title').value = post.title;
+            document.getElementById('content').value = post.content;
+            editIndex = index; // Save the index for editing
+        }
+
+        function deletePost(index) {
+            posts.splice(index, 1);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            renderPosts();
+        }
+
+        function clearForm() {
+            document.getElementById('title').value = '';
+            document.getElementById('content').value = '';
+            document.getElementById('myFile').value = '';
+        }
+
+        renderPosts()
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body><br><br><br><br><br><br>
+    <div class="container"><br>
+        <h1>Welcome to our store</h1>
+        <div class="content">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" placeholder="Input Fullname" autocomplete="on"> <br><br>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Input Email Address" autocomplete="on"> <br><br>
+
+            <label for="sel">Gender</label>
+            <select id="sel">
+                <option value="">Select Your Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select> <br><br>
+
+            <label for="userName">Username</label>
+            <input type="text" id="userName" placeholder="Input your Username" autocomplete="on"> <br><br>
+
+            <label for="Password">Password</label>
+            <input type="password" id="Password" placeholder="Input your Password"> <br><br>
+            
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm your Password"> <br><br>
+
+            <button onclick="submit()">Create account</button> <br><br>
+
+            <div class="no-account" style="display: flex; width: 70%; color: #fff; margin: 0 auto;">
+                <span>Already have an account?<a href="logIn.html">Log In</a></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       let userDatas = JSON.parse(localStorage.getItem("E - commerce")) || []
+       sessionUser = sessionStorage.getItem("Login")
+
+       function submit() {
+            let fullName = document.getElementById("fullName").value
+            let email = document.getElementById("email").value  
+            let gender = document.getElementById("sel").value
+            let userName = document.getElementById("userName").value
+            let Password = document.getElementById("Password").value
+            let confirmPassword = document.getElementById("confirmPassword").value
+
+            let userOBJ = {
+                fullName: fullName,
+                email: email,
+                gender: gender,
+                userName: userName,
+                Password: Password,
+                confirmPassword: confirmPassword,
+                cart: [],
+                history: [],
+                dateRegistered: new Date().toLocaleDateString()
+            }
+            if (fullName !== "" && email !== "" && gender !== "" && userName !== "") {
+                if (Password === confirmPassword && Password !== "" && confirmPassword !== "") {
+                    userDatas.push(userOBJ)
+                    localStorage.setItem("E - commerce", JSON.stringify(userDatas))
+                    window.location.href = "logIn.html"
+                } else{
+                    alert("Invalid Password, Please try again")
+                }  
+            } else{
+                alert("Please fill all fields")
+            }
+        }
+
+        
+    </script>
+</body>
+</html>

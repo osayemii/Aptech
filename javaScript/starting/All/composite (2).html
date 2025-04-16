@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="">First Name</label>
+    <input type="text" id="firstName" autocomplete="on"> <br> <br>
+
+    <label for="">Email</label>
+    <input type="text" id="email" autocomplete="on"> <br> <br>
+
+    <label for="">Phone Number</label>
+    <input type="text" id="phoneNumber" autocomplete="on"> <br> <br>
+
+    <button onclick="register()">Submit</button>
+
+    <table border="1" id="checkUser">
+        <tr>
+            <th>S/N</th>
+            <th>Full Name</th>
+            <th>Email Address</th>
+            <th>Phone Number</th>
+        </tr>
+        <!-- <button onclick="deleteFunc()"></button> -->
+    </table>
+    <br><br>
+
+    <!-- edit table -->
+    <div class="editView" style="display: none;">
+        <label for="">First Name</label>
+        <input type="text" id="editName"> <br> <br>
+
+        <label for="">Email</label>
+        <input type="text" id="editEmail"> <br> <br>
+
+        <label for="">Phone Number</label>
+        <input type="text" id="editPhoneNo"> <br> <br>
+
+        <button onclick="updateFunc()">UPDATE USER</button>
+        <input type="text" id="editIndex" hidden> <br> <br>
+
+
+    </div>
+
+
+    <script>
+
+        let user = JSON.parse(localStorage.getItem("userStorage")) || []
+        // let data = JSON.parse(localStorage.getItem("userStorage"))
+
+        function register() {
+            let name = firstName.value;
+            let emailAddress = email.value;
+            let phoneNo = phoneNumber.value;
+            // console.log(name, emailAddress, phoneNo)
+            
+            if (name == "" || emailAddress == "" || phoneNo == "") {
+                alert("invalid input")
+            }
+            
+                let userOBJ = {
+                    firstName: name,
+                    userEmail: emailAddress,
+                    userPhone: phoneNo,
+                }
+                user.push(userOBJ)
+                localStorage.setItem("userStorage", JSON.stringify(user))
+                alert("successfully stored")
+            
+        }
+
+        getData()
+        function getData() {
+            // For loop
+            for (let index = 0; index < user.length; index++) {
+                // console.log(data[index])
+                displayUser = `<tr>
+                                <td>${index + 1}</td>
+                                <td>${user[index].firstName}</td>
+                                <td>${user[index].userEmail}</td>
+                                <td>${user[index].userPhone}</td>
+                                <td><button onclick="editFunc(${index})">Edit</button></td>
+                                <td><button onclick="deleteFunc(${index})">Delete</button></td>
+                                <td><button>View</button></td>
+                               </tr>`
+                               document.getElementById("checkUser").innerHTML += displayUser
+                            }
+        }
+
+        function editFunc(index) {
+            console.log(user[index])
+            console.log(index)
+            document.querySelector(".editView").style.display = "block"
+            document.getElementById("editName").value = user[index].firstName
+            document.getElementById("editEmail").value = user[index].userEmail
+            document.getElementById("editPhoneNo").value = user[index].userPhone
+            editIndex.value = index
+        }
+
+        function updateFunc() {
+            firstName = editName.value
+            email = editEmail.value
+            phoneNo = editPhoneNo.value
+            index = editIndex.value
+
+            let userUpdate = {
+                firstName: firstName,
+                userEmail: email,
+                userPhone: phoneNo,
+            }
+            user[index] = userUpdate
+            localStorage.setItem("userStorage", JSON.stringify(user))
+            document.querySelector(".editView").style.display = "none"
+        }
+
+        function deleteFunc(index) {
+            user.splice(index, 1)
+            localStorage.setItem("userStorage", JSON.stringify(user))
+            // alert("Hey")
+            console.log("data", user)
+            console.log("delete", user.splice(index, 1))
+            console.log("updateddata", user)
+        }user
+
+
+
+
+        //composite Data type 
+        // 1. Object 
+        // 2. Array
+
+
+        // Object {}
+        let user1 = { name: "Mike", department: "Software Engineering", age: "12", gender: "Male" }
+        let user2 = { name: "Tayo", department: "English Language", age: "20", gender: "Female" }
+        let user3 = { name: "Jennifer", department: "Linguistics", age: "22", gender: "Male" }
+        let user4 = { name: "Daniel", department: "Computer Science", age: "24", gender: "Female" }
+        let user5 = { name: "Emmanuel", department: "Banking & Sugery", age: "26", gender: "Male", interest: ["swimming", "Eating"] }
+        let department = "Yoruba"
+
+
+
+        // Array  []
+        let check = [];
+        // Array method
+        check.push(user1)
+        check.push(user2)
+        check.push(user3)
+        check.push(user4)
+        check.unshift(user5)
+
+
+
+        userArr = [93, 485, "mike", "jemiamah", 100]
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

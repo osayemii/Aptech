@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #products {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product {
+      background: #fff;
+      border: 1px solid #ddd;
+      margin: 10px;
+      padding: 15px;
+      border-radius: 5px;
+      width: 300px;
+      /* max-height: 300px; */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .content input {
+      width: 270px;
+      height: 30px;
+      margin: 0 auto;
+      margin: 5px;
+      padding: 5px;
+    }
+
+    .back-link {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .homeDis {
+      max-width: 100%;
+      margin: 0 auto;
+      /* max-height: 200px; */
+    }
+
+    .homeDisImg:hover {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Back Link to Upload Page -->
+  <h1>Product List</h1>
+  <div class="back-link">
+    <a href="adminPost.html">Upload More Products</a>
+  </div>
+  <section style="display: flex; width: 1200px; margin: 0 auto;">
+    <div id="products"></div>
+    <div class="container" style="word-break: break-all;  "><br>
+      <!-- <h1>Store</h1>
+      <div class="content">
+        <input type="text" id="prName" placeholder="Product Name" autocomplete="on"> <br><br>
+  
+        <input type="text" id="description" placeholder="Description" autocomplete="on"> <br><br>
+  
+        <input type="number" id="price" placeholder="Price" autocomplete="on"> <br><br>
+  
+        <input type="number" id="qty" placeholder="Quantity"> <br><br>
+  
+        <div class="admIMG">
+          <input type="file" id="img" placeholder="Choose Image"> <br><br>
+        </div>
+  
+        <button onclick="upload()">Edit</button> <br><br> -->
+
+    </div>
+    </div>
+  </section>
+
+  <script>
+    let adminStore = JSON.parse(localStorage.getItem("adminStorage")) || [];
+    let productsDiv = document.getElementById("products");
+
+    if (adminStore.length === 0) {
+      // If no products are stored, display a message.
+      productsDiv.innerHTML = '<p>No products found. Please add some products on the upload page.</p>';
+    } else {
+      // Loop through the array and create product cards.
+      adminStore.forEach((product, index) => {
+        let productDiv = document.createElement("div");
+        productDiv.className = "product";
+        productDiv.innerHTML = `
+                                <div class="homeDis">
+                                  <div class="homeDisImg" style="height: 300px; width: ; border: 1px solid #000">
+                                    <img src="${product.img}" style="width: 100%; height: 100%; object-fit: cover;"/>
+                                  </div>
+                                  <h2>${product.Product}</h2>
+                                  <p><strong>Description:</strong> ${product.description}</p>
+                                  <p><strong>Price:</strong> ${product.price}</p>
+                                  <p><strong>Quantity:</strong> ${product.qty}</p>
+                                  <p><small>Posted on ${product.datePosted} at ${product.timePosted}</small></p>
+                                  <div class="link" style="text-align: center; display: flex; justify-content: space-around;">
+                                    <a href="#" style="width: 40%;">
+                                      <button onclick="editPosted(${index})" style="width: 100%;">Edit</button>
+                                    </a>
+                                    <button onclick="deletePosted(${index})" style="width: 40%;">Delete</button>
+                                  </div>
+                                </div>`;
+        productsDiv.appendChild(productDiv);
+      });
+    }
+
+
+    function editPosted(index) {
+      // console.log(index)
+
+      let allDataEdit = ` <div class="container" style="width: 300px; text-align: center;"><br>
+                            <h1>Edit Store</h1>
+                            <div class="content">
+                              <input type="text" id="prName" placeholder="Product Name" autocomplete="on"> <br><br>
+                              
+                              <input type="text" id="description" placeholder="Description" autocomplete="on"> <br><br>
+                              
+                              <input type="number" id="price" placeholder="Price" autocomplete="on"> <br><br>
+                              
+                              <input type="number" id="qty" placeholder="Quantity"> <br><br>
+                              
+                              <div class="admIMG">
+                                <input type="file" id="img" placeholder="Choose Image"> <br><br>
+                                </div>
+                                
+                                <button onclick="uploadEdit(${index})" style="width: 270px; padding: 5px;">Edit</button> <br><br>
+
+                                <input type="text" id="index" disabled value="⚠️ Pls update your product price and image"> <br><br>
+                              </div>
+                            </div>`
+      document.querySelector(".container").innerHTML = allDataEdit;
+      document.getElementById("prName").value = adminStore[index].Product;
+      document.getElementById("description").value = adminStore[index].description;
+      document.getElementById("qty").value = adminStore[index].qty;
+    }
+
+    function deletePosted(index) {
+      // console.log(index)
+      let userDelOption = confirm("Are you sure you want to delete this product?");
+      if (userDelOption) {
+        alert("Product Deleted!");
+        adminStore.splice(index, 1);
+      } else {
+        alert("Product not deleted!");
+      }
+      localStorage.setItem("adminStorage", JSON.stringify(adminStore));
+      window.location.reload();
+    }
+
+    function uploadEdit(index) {
+      console.log(index)
+      let Product = document.getElementById("prName").value;
+      let description = document.getElementById("description").value;
+      let price = parseFloat(document.getElementById("price").value);
+      let qty = document.getElementById("qty").value;
+      let imageFile = document.getElementById("img").files[0];
+
+      if (!Product || !description || !price || !qty || !imageFile || price <= 0 || qty <= 0) {
+        alert("Please fill in all fields appropriately.");
+        return;
+      }
+      function storeProduct(imageData) {
+        let adminOBJ = {
+          Product: Product,
+          description: description,
+          price: price.toLocaleString(),
+          qty: qty,
+          img: imageData,
+          datePosted: new Date().toLocaleDateString(),
+          timePosted: new Date().toLocaleTimeString(),
+        };
+        console.log("Product Object:", adminOBJ);
+        adminStore[index] = adminOBJ;
+        localStorage.setItem("adminStorage", JSON.stringify(adminStore));
+        alert("Product updated!");
+        window.location.reload();
+      }
+      if (imageFile) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          storeProduct(e.target.result);
+        };
+        reader.readAsDataURL(imageFile);
+      } else {
+        // storeProduct(indexValue);
+      }
+    }
+  </script>
+</body>
+
+</html>

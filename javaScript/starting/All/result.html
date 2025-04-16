@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="label">
+
+        <div class="auto" autocomplete="on">
+
+            <label for="">First Name</label>
+            <input type="text" id="firstName"> <br> <br>
+    
+            <label for="">Middle Name</label>
+            <input type="text" id="middleName"> <br> <br>
+        
+            <label for="">Last Name</label>
+            <input type="text" id="lastName"> <br> <br>
+        
+            <label for="">Email</label>
+            <input type="text" id="email"> <br> <br>
+        
+            <label for="">Phone Number</label>
+            <input type="text" id="phoneNumber"> <br> <br>
+        </div>
+
+    
+        <button onclick="register()">Submit</button>
+
+    </div>
+
+    <table border="1" id="checkResult">
+        <tr>
+            <th>Time Table</th>
+        </tr>
+    </table>        
+
+    <script>
+
+        function register() {
+            let firName = firstName.value;
+            let midName = middleName.value;
+            let lasName = lastName.value;
+            let emailAddress = email.value;
+            let phoneNo = phoneNumber.value;
+
+            let userOBJ = {firName:firName, midName:midName, lasName:lasName, emailAddress:emailAddress, phoneNo:phoneNo}
+            console.log(userOBJ)
+        }
+
+
+
+        //composite Data Types
+
+        // Object {}
+        let user1 = {name:"Mike", department:"Software Enginnering", age:"12", gender:"Male"}
+        let user2 = {name:"Tayo", department:"English Language", age:"20", gender:"Female"}
+        let user3 = {name:"Jennifer", department:"Linguistic", age:"22", gender:"Male"}
+        let user4 = {name:"Daniel", department:"Computer Science", age:"24", gender:"Female"}
+        let user5 = {name:"Emmanuel", department:"Banking & Surgery", age:"26", gender:"Male", interst:["Swimming", "Eating"]}
+
+        console.log(user1.department)
+        console.log(user3.age)
+        console.log(user3)
+
+        // Array []
+        let check = ["0", "84", "84", "93", "8", "Gennis", "Mathew", user1]
+        console.log(check)
+        // console.log(check.length)
+        console.log(check[7].department)
+        
+
+        let user = [user1, user2, user3, user4, user5]
+        console.log(user)
+        console.log(user[3].department)
+        console.log(user[4].interst[1])
+
+
+            userArr = [93, 485, "mike", "jemimah", 100]
+            // console.log(userArr[2])
+
+            // displayTimeTableResult = ``
+            for (let i = 1; i <= 10; i++) {
+                console.log(" 5 * " + i + " = " + 5*i)
+                // document.getElementById("checkResult").innerHTML += " 5 * " + i + " = " + 5*i;
+                displayTimeTableResult = `<tr><td> 5 * ${i} = ${i} </td></tr>`
+                document.getElementById("checkResult").innerHTML += displayTimeTableResult
+            }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Post ||</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container"><br>
+    <h1>Store</h1>
+    <div class="content">
+      <input type="text" id="prName" placeholder="Product Name" autocomplete="on"> <br><br>
+
+      <input type="text" id="description" placeholder="Description" autocomplete="on"> <br><br>
+
+      <input type="number" id="price" placeholder="Price" autocomplete="on"> <br><br>
+
+      <input type="number" id="qty" placeholder="Quantity"> <br><br>
+
+      <div class="admIMG">
+        <input type="file" id="img" placeholder="Choose Image"> <br><br>
+      </div>
+
+      <button onclick="upload()">Upload Product</button> <br><br>
+      <div class="link">
+        <a href="adminHome.html" style="font-size: 12px;">Go to Home (View Products)</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function upload() {
+      let adminStore = JSON.parse(localStorage.getItem("adminStorage")) || [];
+
+      let Product = document.getElementById("prName").value;
+      let description = document.getElementById("description").value;
+      let price = parseInt(document.getElementById("price").value);
+      let qty = document.getElementById("qty").value;
+
+      let imageFile = document.getElementById("img").files[0];
+
+      if (!Product || !description || !price || !qty || !imageFile || price <= 0 || qty <= 0) {
+        alert("Please fill in all fields appropriately.");
+        return;
+      }
+
+      function storeProduct(imageData) {
+        let adminOBJ = {
+          Product: Product,
+          description: description,
+          price: price.toLocaleString(),
+          qty: qty,
+          img: imageData,
+          datePosted: new Date().toLocaleDateString(),
+          timePosted: new Date().toLocaleTimeString(),
+        };
+        console.log("Product Object:", adminOBJ);
+        adminStore.push(adminOBJ);
+        localStorage.setItem("adminStorage", JSON.stringify(adminStore));
+        alert("Product uploaded!");
+      }
+
+      // If a file was provided, read it and then store the product
+      if (imageFile) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          let imageDataUrl = e.target.result; // Converted Data URL for the image
+          storeProduct(imageDataUrl);
+        };
+        reader.readAsDataURL(imageFile);
+      } else {
+        storeProduct("");
+      }
+    }
+  </script>
+
+</body>
+
+</html>

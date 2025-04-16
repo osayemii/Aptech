@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Blog</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+    <header style="background-color: #4CAF50; color: white; text-align: center; padding: 1px 0; position: fixed; width: 100%; top: 0;">
+        <h1>Welcome to My Blog</h1>
+    </header>
+
+    <main style="padding: 2rem; margin-top: 60px; border: 1px solid;">
+        <section id="create-post" style="width: 600px; margin: 0 auto; text-align: center;">
+            <h2>Create or Edit Post</h2>
+            <input type="text" id="post-title" placeholder="Enter post title" style="width: 500px; padding: 10px;"><br><br>
+            <textarea id="post-content" placeholder="Write your content here" style="width: 500px; height: 100px; padding: 10px; border-radius: 8px;"></textarea><br><br>
+            <input type="file" id="post-image" accept="image/*" onchange="previewImage()" style="width: 500px;"><br><br>
+            <img id="image-preview" style="max-width: 300px; max-height: 150px; margin: 0 auto; display: none; margin-bottom: 5px;"><br><br>
+            <button onclick="savePost()" style="width: 500px; padding: 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Submit</button>
+        </section>
+
+        <h2 style="text-align: center;">Blog Posts</h2>
+        <section id="blog-posts" style="text-align: left; max-width: 100%; margin: 20px auto; display: flex; justify-content: space-between;" >
+        </section>
+    </main>
+    <style>
+    </style>
+
+    <script>
+        let posts = JSON.parse(localStorage.getItem("userStorage")) || []
+        let editIndex = null; // Tracks the index of the post being edited
+
+        // Function to display blog posts
+        function displayPosts() {
+            const blogPostsSection = document.getElementById('blog-posts');
+            blogPostsSection.innerHTML = `<h2 style="text-align: center; margin-top: -10px;"></h2>`;
+            posts.forEach((post, index) => {
+                const postElement = document.createElement('article');
+                postElement.style.cssText = "border: 1px solid #ddd; padding: 1rem; margin-bottom: 1rem; border-radius: 5px; background-color: #f9f9f9;";
+                postElement.innerHTML = `
+                    <img src="${post.image || ''}" style="max-width: 100%; display: ${post.image ? 'block' : 'none'}; margin-bottom: 10px;">
+                    <h3>${post.title}</h3>
+                    <p>${post.content}</p>
+                    <div style="display: flex; justify-content: space-between; width: 80%; margin: 0 auto;">
+                        <button onclick="deletePost(${index})" style="padding: 10px 15px; background-color: red; color: white; border: none; cursor: pointer;">Delete</button>
+                        <a href="#"><button onclick="editPost(${index})" style="transition: ease-in 1s;  padding: 10px 15px; background-color: orange; color: white; border: none; cursor: pointer;">Edit</button></a>
+                        <button onclick="viewPost(${index})" style="padding: 10px 15px; background-color: blue; color: white; border: none; cursor: pointer;">View</button>
+                    </div>
+                `;
+                blogPostsSection.appendChild(postElement);
+            });
+        }
+
+        // Function to save a new or edited post
+        function savePost() {
+            const title = document.getElementById('post-title').value;
+            const content = document.getElementById('post-content').value;
+            const image = document.getElementById('image-preview').src;
+
+            if (title && content) {
+                if (editIndex !== null) {
+                    // Update the existing post
+                    posts[editIndex] = { title, content, image };
+                    editIndex = null; // Reset the edit index
+                } else {
+                    // Add a new post
+                    posts.push({ title, content, image });
+                }
+                displayPosts();
+                document.getElementById('post-title').value = '';
+                document.getElementById('post-content').value = '';
+                document.getElementById('image-preview').style.display = 'none';
+            } else {
+                alert('Please fill out both the title and content fields!');
+            }
+        }
+
+        // Function to delete a post
+        function deletePost(index) {
+            posts.splice(index, 1);
+            displayPosts();
+        }
+
+        // Function to edit a post
+        function editPost(index) {
+            const post = posts[index];
+            document.getElementById('post-title').value = post.title;
+            document.getElementById('post-content').value = post.content;
+            if (post.image) {
+                document.getElementById('image-preview').src = post.image;
+                document.getElementById('image-preview').style.display = 'block';
+            } else {
+                document.getElementById('image-preview').style.display = 'none';
+            }
+            editIndex = index; // Set the edit index to the current post
+        }
+
+        // Function to view a post
+        function viewPost(index) {
+            const post = posts[index];
+            alert(`Title: ${post.title}\nContent: ${post.content}`);
+        }
+
+        // Function to preview an image
+        function previewImage() {
+            const file = document.getElementById('post-image').files[0];
+            const preview = document.getElementById('image-preview');
+            const reader = new FileReader();
+            reader.onload = () => {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Initial display of posts
+        displayPosts();
+    </script>
+</body>
+</html>
+

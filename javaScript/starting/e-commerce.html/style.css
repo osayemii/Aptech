@@ -1,0 +1,89 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container{
+    width: 400px;
+    border: 2px solid #434343dd;
+    background: #808080;
+    padding: 30px 5px;
+    border-radius: 20px;
+    border-top-right-radius: 0;
+    margin-top: 50px;
+}
+
+.content{
+    width: 70%;
+    margin: 0 auto;
+}
+
+.container:active{
+    outline: none;
+    background: #434343dd;
+    border: gray;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+    border-bottom: 3px solid whitesmoke;
+}
+
+label{
+    color: #fff;
+    font-size: 15px;
+}
+
+input, select{
+    width: 100%;
+    padding: 10px;
+    margin-block: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    color: #434343c1;
+}
+
+input:focus,select:focus{
+    border: 1px solid #434343dd;
+    background: #434343c1;
+    color: #fff;
+}
+button{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+a{
+    text-decoration: underline;
+    font-size: 16px;
+    color: #000;
+    margin: 0 50px;
+}
+.admIMG {
+    width: 100%;
+    margin: 0 auto;
+    height: 55px;
+    margin-bottom: 20px;
+    align-items: center;
+    display: block;
+    border: 2px solid #636262;
+}

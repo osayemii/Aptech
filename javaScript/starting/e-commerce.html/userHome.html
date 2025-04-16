@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Homepage</title>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    section {
+      overflow-x: hidden;
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    .innBtns {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .innBtns svg {
+      width: 15px;
+      height: 15px;
+      margin-left: 10px;
+    }
+
+    header {
+      position: fixed;
+      width: 1200px;
+      padding: 10px;
+      text-align: right;
+      font-size: 18px;
+      background: #ccc;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    header button {
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 12px;
+      background: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: ease-in-out 0.3s;
+    }
+
+    header button:hover {
+      background: #fff;
+      color: #000;
+      border: 1px solid;
+    }
+
+    .cartt {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+    }
+
+    .cartt a {
+      margin-left: 30px;
+      margin-right: 10px;
+      /* text-decoration: none;
+      color: #000;
+      font-weight: 600; */
+    }
+
+    .btns {
+      /* position: absolute; */
+      position: relative;
+    }
+
+    #products {
+      width: 1080px;
+      margin: 0 auto;
+      /* border: 1px solid; */
+      padding-top: 60px;
+      align-items: flex-start;
+      display: flex;
+      flex-wrap: wrap;
+      /* justify-content: space-between; */
+    }
+
+    .product {
+      width: 200px;
+      /* height: 210px; */
+      margin-inline: 10px 5px;
+      padding-bottom: 5px;
+      border: 1px solid;
+      margin-bottom: 20px;
+    }
+
+    .homeDisImage {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid;
+      margin: 0 auto;
+      max-height: 150px;
+      cursor: pointer;
+    }
+
+    .homeDisImage img {
+      width: 90%;
+      height: 130px;
+      object-fit: cover;
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      transition: ease-in-out 0.3s;
+    }
+
+    .homeDisImage img:hover {
+      transform: scale(0.9);
+      transition: ease-in-out 0.3s;
+    }
+
+    .homeDisbtn {
+      display: flex;
+      justify-content: space-between;
+      padding: 2px 4px 0 4px;
+      font-size: 12px;
+      /* border: 1px solid; */
+      align-items: center;
+    }
+
+    .homeDisbtn p {
+      max-width: 60%;
+    }
+
+    .homeDisbtn button {
+      padding: 5px;
+      margin-left: 10px;
+      border-radius: 3px;
+      font-size: 10px;
+      background: #000;
+      color: #fff;
+      border: none;
+      margin-top: 5px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: ease-in-out 0.3s;
+    }
+
+    .homeDisbtn button:hover {
+      background: #fff;
+      color: #000;
+      border: 1px solid;
+    }
+
+    .logOut {
+      width: 100%;
+      background: #777;
+      height: 50px;
+      position: relative;
+    }
+
+    #del,
+    #log {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    #logOutBtn,
+    #delAcctBtn {
+      position: absolute;
+      border: 2px solid transparent;
+      position: fixed;
+      z-index: 10;
+      margin-top: 60px;
+      display: none;
+      border: none;
+      font-size: 15px;
+      background: transparent;
+      font-weight: 600;
+      color: #000;
+      cursor: pointer;
+    }
+
+    #logOutBtn:hover,
+    #delAcctBtn:hover {
+      border-bottom: 2px solid #000;
+      transition: ease-in-out 0.5s;
+    }
+
+    #delWarn,
+    #logWarn {
+      display: none;
+      position: absolute;
+      position: fixed;
+      text-align: center;
+      z-index: 100;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      width: 300px;
+      margin: 0 auto;
+      /* height: 50px; */
+      background: #fff;
+      border-radius: 5px 0 5px 5px;
+    }
+
+    #delWarn h3,
+    #logWarn h3 {
+      font-size: 11px;
+      font-weight: 600;
+      color: #000;
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    #delWarn .btn,
+    #logWarn .btn {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    #delWarn svg,
+    #logWarn svg {
+      width: 20px;
+      height: 20px;
+      color: #000;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 3px;
+      border-radius: 50%;
+    }
+
+    #delWarn svg:hover,
+    #logWarn svg:hover {
+      cursor: pointer;
+      background: #ff0000e4;
+      color: #fff;
+    }
+
+    #delWarn button,
+    #logWarn button {
+      width: 30%;
+      background: #000;
+      color: #fff;
+      border: 1px solid transparent;
+      transition: ease-in-out 0.5s;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #delWarn button:hover,
+    #logWarn button:hover {
+      background: #fff;
+      color: #000;
+      border: 1px solid;
+    }
+
+    #delWarn p {
+      font-size: 9px;
+      color: #000;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    #cartID {
+      display: flex;
+      text-decoration: none;
+      align-items: top;
+      font-size: 11px;
+      color: #000;
+      font-weight: 600;
+      transition: ease-in-out 0.5s;
+    }
+
+    #cartID:hover {
+      text-decoration: none;
+      color: #00ff;
+    }
+
+    #cartID svg {
+      width: 25px;
+      height: 25px;
+      margin-right: .5px;
+    }
+  </style>
+</head>
+
+<body id="body">
+  <section>
+    <header>
+      <div class="btns">
+        <button onclick="displayLogs()" class="innBtns">Menu <svg height="15" width="15" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" fill="currentColor" />
+          </svg></button>
+      </div>
+      <div class="cartt">
+        <h1 id="userLoginName">Welcome, Guest</h1>
+        <a id="cartID" href="cart.html"></a>
+        <span onclick="history()" style="font-size: 13px; cursor: pointer;">History</span>
+      </div>
+    </header>
+    <div class="bts">
+      <button onclick="logOut(userLoginIndex)" id="logOutBtn">Log
+        out</button>
+      <button onclick="delAcctBtn(userLoginIndex)" style="margin-top: 90px;" id="delAcctBtn">Delete account</button>
+    </div>
+    <div id="products"></div>
+  </section>
+
+  <div id="del">
+    <div id="delWarn">
+      <svg onclick="noDel()" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 512 512">
+        <path fill="#000" fill-rule="evenodd"
+          d="M420.48 121.813L390.187 91.52L256 225.92L121.813 91.52L91.52 121.813L225.92 256L91.52 390.187l30.293 30.293L256 286.08l134.187 134.4l30.293-30.293L286.08 256z" />
+      </svg>
+      <h1 style="margin-top: 20px;">⚠️ Alert!</h1>
+      <h3>Are you sure you want to delete this account?</h3>
+      <div class="btn">
+        <button onclick="yesDel(userLoginIndex)">Yes</button>
+        <button onclick="noDel(userLoginIndex)">No</button>
+      </div>
+      <p>⚠️ Warning: When this account is deleted all your information on this account wiil be lost</p>
+    </div>
+  </div>
+  <div id="log">
+    <div id="logWarn">
+      <svg onclick="noLog()" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 512 512">
+        <path fill="#000" fill-rule="evenodd"
+          d="M420.48 121.813L390.187 91.52L256 225.92L121.813 91.52L91.52 121.813L225.92 256L91.52 390.187l30.293 30.293L256 286.08l134.187 134.4l30.293-30.293L286.08 256z" />
+      </svg>
+      <h3 style="margin-top: 20px;">Are you sure you want to <u>Log Out?</u></h3>
+      <div class="btn">
+        <button onclick="yesLog(userLoginIndex)">Yes</button>
+        <button onclick="noLog(userLoginIndex)">No</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let adminStore = JSON.parse(localStorage.getItem("adminStorage")) || [];
+    let userDatas = JSON.parse(localStorage.getItem("E - commerce")) || []
+    let productsDiv = document.getElementById("products");
+    let userLoginIndex = sessionStorage.getItem("Login")
+    if (!userLoginIndex || userLoginIndex === null || userLoginIndex === "-1") {
+      document.getElementById("userLoginName").innerHTML = "Welcome, Guest";
+    } else {
+      document.getElementById("userLoginName").innerHTML = "Welcome, " + userDatas[userLoginIndex]?.userName || "Guest";
+    }
+
+
+    if (adminStore.length === 0) {
+      // If no products are stored, display a message.
+      productsDiv.innerHTML = '<p>No products found. Please add some products on the upload page.</p>';
+    } else {
+      // Loop through the array and create product cards.
+      adminStore.forEach((product, index) => {
+        // console.log(product)
+        const productDiv = document.createElement("div");
+        productDiv.className = "product";
+        productDiv.innerHTML = `
+              <div class="homeDis">
+                <div class="homeDisImage">
+                    ${product.img ? `<img src="${product.img}" alt="${product.Product} Image" />` : ''}
+                </div>
+                <div class="homeDisbtn">
+                    <p><strong>Name:</strong> ${product.Product}</p>
+                    <button onclick="addCart(${index})">Add to Cart</button>
+                    </div>
+                <div class="homeDisbtn">
+                    <p><strong>Price:</strong> ₦${product.price}</p>
+                    <button onclick="buyNow(${index})">Buy Now</button>
+                </div>
+                <div class="homeDisDesc">
+                    <!--<p><strong>Description:</strong> ${product.description}</p> -->
+                </div>
+              </div>
+            `;
+        productsDiv.appendChild(productDiv);
+      });
+    }
+
+    function addCart(index) {
+      let productObject = adminStore[index];
+      let cartPush = userDatas[userLoginIndex].cart
+      cartPush.push(productObject);
+      localStorage.setItem("E - commerce", JSON.stringify(userDatas))
+      window.onload()
+      // console.log(userHistory)
+    }
+
+    window.onload = function cartNum(index) {
+      document.getElementById("cartID").innerHTML = `<svg height="30" width="30" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+	<path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3M7 18c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m10 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m-9.8-3.2v-.1l.9-1.7h7.4c.7 0 1.4-.4 1.7-1l3.9-7l-1.7-1l-3.9 7h-7L4.3 2H1v2h2l3.6 7.6L5.2 14c-.1.3-.2.6-.2 1c0 1.1.9 2 2 2h12v-2H7.4c-.1 0-.2-.1-.2-.2Z" fill="currentColor"/>
+</svg>` + userDatas[userLoginIndex].cart.length
+
+    }
+
+    if (userLoginIndex && userLoginIndex !== null && userLoginIndex !== "-1") {
+      function buyNow(index) {
+        let paystack = PaystackPop.setup({
+          key: 'pk_test_b3b7ed5537e0493365198ec73cb1d8094fecc7e3',
+          email: userDatas[userLoginIndex]?.email || "guest@example.com",
+          amount: parseInt((adminStore[index].price).replace(',', '')) * 100,
+          
+          callback: function (transaction) {
+            alert("Payment successful");
+            let userHistory = userDatas[userLoginIndex]?.history || [];
+            userHistory.push(adminStore[index]);
+            userDatas[userLoginIndex].history = userHistory;
+            localStorage.setItem("E - commerce", JSON.stringify(userDatas));
+          },
+          onClose: function () {
+            alert("Payment popup closed");
+          }
+        });
+    
+        paystack.openIframe();
+      }
+    }
+
+
+    // if (displayLogs) {
+    //   let displayLog = document.querySelector(".innBtns")
+    //   displayLog.addEventListener('onclick', (e) => {
+    //     document.getElementById("logOutBtn").style.display = "none"
+    //     document.getElementById("delAcctBtn").style.display = "none"
+    //   })
+    // }
+    function displayLogs() {
+
+      if (userLoginIndex <= -1 || userLoginIndex === "") {
+        alert("Please log in or create a new account.")
+        window.location.href = "logIn.html"
+      } else {
+        document.getElementById("logOutBtn").style.display = "block"
+        document.getElementById("delAcctBtn").style.display = "block"
+      }
+    }
+
+    function logOut(userLoginIndex) {
+      document.getElementById("log").style.display = "block"
+      document.getElementById("logWarn").style.display = "block"
+      // document.getElementById("body").style.overflow = "hidden"
+    }
+
+    function yesLog(userLoginIndex) {
+      let logMsg = (confirm(userDatas[userLoginIndex].fullName + " are you sure you want to log out?"));
+      if (logMsg) {
+        sessionStorage.removeItem("Login")
+        window.location.href = "logIn.html"
+        alert("You have successfully logged out.")
+      } else {
+        alert("You are still logged in!")
+        window.location.reload()
+      }
+    }
+
+    function noLog(userLoginIndex) {
+      document.getElementById("logWarn").style.display = "none"
+      document.getElementById("log").style.display = "none"
+      window.onload()
+    }
+
+    function delAcctBtn(userLoginIndex) {
+      document.getElementById("del").style.display = "block"
+      document.getElementById("delWarn").style.display = "block"
+      // document.getElementById("body").style.overflow = "hidden"
+    }
+
+    function yesDel(userLoginIndex) {
+      let goodByeMsg = (confirm(userDatas[userLoginIndex].fullName + " are you sure you want to delete your account?"));
+      if (goodByeMsg) {
+        alert("Goodbye, " + userDatas[userLoginIndex].fullName + ", You have successfully deleted your account.");
+        userDatas.splice(userLoginIndex, 1)
+        window.location.href = "logIn.html"
+        localStorage.setItem("E - commerce", JSON.stringify(userDatas))
+      } else {
+        alert("Account not deleted!")
+        window.location.reload()
+      }
+    }
+
+    function noDel(userLoginIndex) {
+      document.getElementById("delWarn").style.display = "none"
+      document.getElementById("del").style.display = "none"
+      window.location.reload()
+    }
+
+    function history() {
+      if (userLoginIndex <= -1) {
+        alert("090987877")
+      }
+    }
+  </script>
+</body>
+
+</html>

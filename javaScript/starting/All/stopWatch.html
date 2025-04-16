@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stop Watch</title>
+    <style>
+        section {
+            width: 200px;
+            border: 3px solid rgb(0, 0, 50);
+            box-shadow: 4px 4px 4px #000;
+            padding: 10px 30px;
+            backdrop-filter: blur(10%);
+            margin: 0 auto;
+            height: 150px;
+        }
+        .stop {
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #b1acac;
+            padding: 15px 20px;
+            box-shadow: 1px 1px 1px #000;
+        }
+        input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 25px;
+            font-weight: 600;
+            color: #020202;
+            cursor: text;
+            font-family: sans-serif;
+            background-color: aqua;
+            backdrop-filter: blur(50%);
+        }
+        .button {
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            place-items: center;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: none;
+            background-color: #ff0000;
+            font-size: 15px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="stop">
+            <input type="text" placeholder="00" maxlength="2" id="hourID">
+            <input type="text" placeholder="00" maxlength="2" id="minutesID">
+            <input type="text" placeholder="00" maxlength="2" id="secondsID">
+            <audio src="audio/aud1.wav" id="audioID"></audio>
+        </div>
+        <div class="button">
+            <button onclick="setCountDown()">Start</button>
+            <button onclick="stopCountDown()">Stop</button>
+        </div>
+    </section>
+
+    <script>
+        let global;
+
+        function setCountDown() {
+            global = setInterval(countDown, 1000);
+        }
+
+        function stopCountDown() {
+            clearInterval(global);
+            audioID.pause();
+        }
+
+        function countDown() {
+            let seconds = Number(secondsID.value);
+            let minutes = Number(minutesID.value);
+            let hours = Number(hourID.value);
+             
+            if (hours === 0 && minutes === 0 && seconds === 0) {
+                clearInterval(global);
+                audioID.play();
+            }
+
+            if (seconds > 0) {
+                seconds--;
+            } 
+            else if (minutes > 0) {
+                seconds = 59;
+                minutes--;
+            } 
+            else if (hours > 0) {
+                seconds = 59;
+                minutes = 59;
+                hours--;
+            }
+
+            secondsID.value = seconds < 10 ? "0" + seconds : seconds;
+            minutesID.value = minutes < 10 ? "0" + minutes : minutes;
+            hourID.value = hours < 10 ? "0" + hours : hours;
+        }
+    </script>
+</body>
+</html>

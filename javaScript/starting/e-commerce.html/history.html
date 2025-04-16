@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="clearHistory()">Clear History</button><br><br>
+    <table border="1" id="productTable" style="width: 100%; border-collapse: collapse; text-align: center;">
+        
+    </table>
+    <div id="emptyHistory"></div>
+
+
+    <script>
+        let userDatas = JSON.parse(localStorage.getItem("E - commerce")) || []
+        let userLoginIndex = sessionStorage.getItem("Login") || 0
+        let userHistory = userDatas[userLoginIndex].history || []
+        
+        if (userHistory.length === 0) {
+            document.getElementById("emptyHistory").innerHTML = `<h1 style="text-align: center;">No Purchase History</h1>`
+        } else {
+            let productTable = `<tr><th>S/N</th><th>Product Name</th><th>Product Price</th><th>Image</th></tr>`
+            for (let index = 0; index < userHistory.length; index++) {
+                productTable += `<tr>
+                                    <td>${index + 1}</td>
+                                    <td>${userHistory[index].Product}</td>
+                                    <td>₦${userHistory[index].price}</td>
+                                    <td><img src="${userHistory[index].img}" alt="" style="width: 100px; height: 100px; object-fit: contain;"></td>
+                                </tr>`
+            }
+            document.getElementById("productTable").innerHTML = productTable
+        }
+        
+
+        function clearHistory (userLoginIndex) {
+            if (userHistory.length !== 0) {
+                let historyConfirm = (confirm("Are you sure you want to clear your history?"))
+                if (historyConfirm) {
+                    userHistory.length = 0;
+                    alert("You have successfully clear your history")
+                    localStorage.setItem(("E - commerce"), JSON.stringify(userDatas));
+                } else {
+                    alert("Not cleared")
+                }
+                window.location.reload()
+            } else {
+                alert("You have no history to clear")
+            }
+        }
+    </script>
+</body>
+
+</html>
