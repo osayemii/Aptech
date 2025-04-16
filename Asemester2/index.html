@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown Menu</title>
+  <style>
+    /* Basic styling for the menu */
+    .menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background: #333;
+      display: flex;
+      gap: 30px;
+    }
+
+    .menu li {
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .menu li:hover {
+      background: #444;
+    }
+
+    /* Styling the dropdown menu */
+    .dropdown {
+      display: none; /* Initially hidden */
+      position: absolute;
+      top: 100%; /* Positioned below the parent item */
+      left: 0;
+      list-style: none;
+      background: #444;
+      padding: 0;
+      margin: 0;
+      min-width: 150px;
+    }
+
+    .dropdown li {
+      padding: 10px;
+    }
+
+    .menu li:hover .dropdown {
+      display: block; /* Shows dropdown on hover */
+    }
+  </style>
+</head>
+<body id="body">
+  <ul class="menu">
+    <li>Home</li>
+    <li>About
+      <ul class="dropdown">
+        <li>Our Team</li>
+        <li>Our Vision</li>
+      </ul>
+    </li>
+    <li>Contact</li>
+  </ul>
+  <input type="text" id="search" placeholder="Search..." title="What are you looking for?">
+  <input type="color" id="colorPicker" value="#ffffff" title="Choose your color">
+  <script>
+    let bod = document.getElementById("body");
+    // JavaScript to handle color picker functionality
+    document.getElementById('colorPicker').addEventListener('input', function() {
+      const color = this.value;
+      document.querySelectorAll('#body').forEach(item => {
+        bod.style.background = color;
+      });
+    });
+
+    // JavaScript to handle search functionality
+    document.getElementById('search').addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      const menuItems = document.querySelectorAll('.menu li, .dropdown li');
+      menuItems.forEach(item => {
+        if (item.textContent.toLowerCase().includes(query)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.img-bg {
+    background-image: url(files/bg.jpg);
+    height: 80vh;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    /* background-attachment: fixed; */
+}
+
+.first-button {
+    width: 165px;
+    cursor: pointer;
+    height: 38px;
+    font-size: 10px;
+    font-family: sans-serif;
+    font-weight: 600;
+    background-color: rgb(255, 110, 7);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    transition: ease-in-out;
+    transition-duration: 1.5s;
+    /* margin-left: 5px; */
+    cursor: pointer;
+}
+
+.hero-text {
+    padding: 70px 0 0 250px;
+}
+
+.first-button:hover {
+    background-color: rgba(255, 110, 7, 0.729);
+    border: 1px solid transparent;
+}
+
+.hero-text h1 {
+    color: white;
+    padding: 10px;
+    font-size: 50px;
+    font-family: Lato, Arial, Helvetica, sans-serif;
+}
+
+.light {
+    font-weight: 80;
+}
+
+.hero-text p {
+    color: rgb(239, 239, 239);
+    margin: 20px 0 0 10px;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.a2 {
+    display: flex;
+}
+
+.a2 ul li {
+    margin-right: 20px;
+    font-size: 11px;
+}
+
+.a2 ul {
+    display: flex;
+    color: white;
+    list-style: none;
+    margin-right: 20px;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.menu {
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.a1 img {
+    margin-left: -50px;
+    margin-top: 30px;
+    width: 75px;
+    cursor: pointer;
+}
+
+h5 {
+    margin-top: 50px;
+    background-color: transparent;
+    font-size: 11px;
+    font-weight: 200;
+    cursor: pointer;
+    /* font-family: sans-serif; */
+    /* font-weight: 600; */
+    color: white;
+}
+
+button {
+    /* width: ; */
+    padding: 13px 15px;
+    border-radius: 2px;
+    background-color: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    margin-top: 40px;
+    font-weight: 200;
+    font-family: sans-serif;
+    cursor: pointer;
+    /* margin-left: -170px; */
+    color: white;
+    transition: linear;
+    transition-duration: 1s;
+    font-size: 11px;
+    margin-left: 20px;
+}
+
+button:hover {
+    background-color: rgb(255, 110, 7);
+    border: 1px solid transparent;
+}

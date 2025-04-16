@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <p></p>
+    </div>
+    <div class="content">
+        <div class="gradient"></div>
+        <img src="img/coat arm.jpeg" alt="" srcset="">
+    </div>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            height: 80vh;
+            background-image: url(img/BardenasBiosphere_EN-US6936891495_UHD.jpg);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        
+        .container::before {
+            content: "";
+            background-image: linear-gradient(to right, rgba(255, 0, 0, 0.452), rgba(0, 0, 255, 0.452));
+            inset: 0;
+            position: absolute;
+        }
+        
+        .content {
+            border: 2px solid black;
+            height: 500px;
+            width: 500px;
+            position: relative;
+        }
+        
+        .gradient {
+            width: 500px;
+            height: 300px;
+            background-image: linear-gradient(to right, rgba(255, 0, 0, 0.548), rgba(0, 0, 255, 0.801));
+            position: absolute;
+        }
+        
+        .content img {
+            width: 500px;
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
+</body>
+
+</html>
