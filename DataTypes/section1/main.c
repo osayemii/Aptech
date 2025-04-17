@@ -162,29 +162,28 @@
 // }
 
 // 14
-void calculateQuad();
-void calculateQuad() {
-    double a, b, c, solution1, solution2, discriminant;
-    // Get the coefficient of x^2
-    printf("Enter the  coefficient if X^2\n");
-    scanf("%d", &a);
+// void calculateQuad() {
+//     double a, b, c, solution1, solution2, discriminant;
+//     // Get the coefficient of x^2
+//     printf("Enter the  coefficient if X^2\n");
+//     scanf("%d", &a);
 
-    // Get the coefficient of X
-    printf("Enter the  coefficient if X\n");
-    scanf("%d", &b);
+//     // Get the coefficient of X
+//     printf("Enter the  coefficient if X\n");
+//     scanf("%d", &b);
 
-    // Get the constant term
-    printf("Enter the  constamnt term\n");
-    scanf("%d", &c);
+//     // Get the constant term
+//     printf("Enter the  constamnt term\n");
+//     scanf("hello%d", &c);
 
-    printf("The params are: a = %d, b = %d, c = %d", a, b, c);
-    discriminant = pow(b, 2) - (4 * a * c);
-}
+//     printf("The params are: a = %d, b = %d, c = %d", a, b, c);
+//     discriminant = pow(b, 2) - (4 * a * c);
+// }
 
-int main() {
-    calculateQuad();
-    return 0;
-}
+// int main() {
+//     calculateQuad();
+//     return 0;
+// }
 
 // 15
 // int main()
@@ -201,4 +200,34 @@ int main() {
 //     printf("The average temperature = %.2f\n", sum/4);
 //     return 0;
 // }
+
+// 16
+// int main()
+// {
+//     char name;
+//     char* mainName = &name;
+//     *mainName = "D";
+//     printf("Name: %s\n", mainName);
+//     printf("Address: %p\n", (void*)mainName);
+//     return 0;
+// }
+
+// 17
+struct person
+{
+    char name[50];
+    int age;
+    float height;
+};
+ int main(){
+    struct person person1 = {"John Doe", 30, 5.9};
+    struct person person2 = {"Jane Smith", 25, 5.5};
+    struct person person3 = {"Alice Johnson", 28, 5.7};
+
+    printf("Person 1: %s, Age: %d, Height: %.2f\n", person1.name, person1.age, person1.height);
+    printf("Person 2: %s, Age: %d, Height: %.2f\n", person2.name, person2.age, person2.height);
+    printf("Person 3: %s, Age: %d, Height: %.2f\n", person3.name, person3.age, person3.height);
+    return 0;
+};
+
 
