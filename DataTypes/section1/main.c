@@ -162,49 +162,43 @@
 // }
 
 // 14
-// void calculateQuad();
-// void calculateQuad()
-// {
-//     double a, b, c, solution1, solution2, discriminant;
-//     // Get the coefficient of x^2
-//     printf("Enter the  coefficient if X^2\n");
-//     scanf("%d", &a);
+void calculateQuad();
+void calculateQuad() {
+    double a, b, c, solution1, solution2, discriminant;
+    // Get the coefficient of x^2
+    printf("Enter the  coefficient if X^2\n");
+    scanf("%d", &a);
 
-//     // Get the coefficient of X
-//     printf("Enter the  coefficient if X\n");
-//     scanf("%d", &b);
+    // Get the coefficient of X
+    printf("Enter the  coefficient if X\n");
+    scanf("%d", &b);
 
-//     // Get the constant term
-//     printf("Enter the  constamnt term\n");
-//     scanf("%d", &c);
+    // Get the constant term
+    printf("Enter the  constamnt term\n");
+    scanf("%d", &c);
 
-//     printf("The params are: a = %d, b = %d, c = %d", a, b, c);
-//     discriminant = pow(b, 2) - (4 * a * c);
-//     if (condition)
-//     {
-//         /* code */
-//     }
-    
-// }
+    printf("The params are: a = %d, b = %d, c = %d", a, b, c);
+    discriminant = pow(b, 2) - (4 * a * c);
+}
 
-// int main() {
-//     calculateQuad();
-//     return 0;
-// }
-
-// 15
-int main()
-{
-    float sum = 0.0;
-    float temperature[4] = {23.5, 25.0, 22.8, 24.1};
-    int i;
-    while (i<=3)
-    {
-        printf("Temp %d = %.2f\n" , i+1,temperature[i]);
-        sum += temperature[i];
-        i++;
-    }
-    printf("The average temperature = %.2f\n", sum/4);
+int main() {
+    calculateQuad();
     return 0;
 }
+
+// 15
+// int main()
+// {
+//     float sum = 0.0;
+//     float temperature[4] = {23.5, 25.0, 22.8, 24.1};
+//     int i;
+//     while (i<=3)
+//     {
+//         printf("Temp %d = %.2f\n" , i+1,temperature[i]);
+//         sum += temperature[i];
+//         i++;
+//     }
+//     printf("The average temperature = %.2f\n", sum/4);
+//     return 0;
+// }
 
