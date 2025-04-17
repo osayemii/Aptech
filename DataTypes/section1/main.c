@@ -230,21 +230,41 @@
 // }
 
 // 18
-union MyIdentity {
-    char name[50];
-    int idNumber;
-    int phoneNumber;
+// union MyIdentity {
+//     char name[50];
+//     int idNumber;
+//     int phoneNumber;
+// };
+// int main() {
+//     union MyIdentity identity;
+    
+//     strcpy(identity.name, "Daniel Osayemi");
+//     printf("Name: %s\n", identity.name);
+
+//     identity.idNumber = 123456789;
+//     printf("ID Number: %d\n", identity.idNumber);
+
+//     identity.phoneNumber = 987654321;
+//     printf("Phone Number: %d\n", identity.phoneNumber);
+//     return 0;
+// }
+
+// 19
+union Lifestyle
+{
+    char name[20];
+    int income;
+    float weight;
 };
 int main() {
-    union MyIdentity identity;
-    
-    strcpy(identity.name, "Daniel Osayemi");
-    printf("Name: %s\n", identity.name);
+    union Lifestyle hello;
 
-    identity.idNumber = 123456789;
-    printf("ID Number: %d\n", identity.idNumber);
+    strcpy(hello.name, "Osayemi Daniel");
+    printf("Full name: %s\n", hello.name);
 
-    identity.phoneNumber = 987654321;
-    printf("Phone Number: %d\n", identity.phoneNumber);
-    return 0;
+    hello.income = 20000;
+    printf("Income: $%d\n", hello.income);
+
+    hello.weight = 150;
+    printf("Weight: %.2fkg\n", hello.weight);
 }
