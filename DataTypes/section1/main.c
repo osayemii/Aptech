@@ -213,21 +213,38 @@
 // }
 
 // 17
-struct person
-{
+// struct Student
+// {
+//     int id;
+//     char name[50];
+//     float gpa;
+// };
+// int main()
+// {
+//     struct Student first = {1, "Daniel", 3.5};
+//     struct Student second = {2, "John", 3.8};
+
+//     printf("ID: %d, Name: %s, GPA: %.2f\n", first.id, first.name, first.gpa);
+//     printf("ID: %d, Name: %s, GPA: %.2f\n", second.id, second.name, second.gpa);
+//     return 0;
+// }
+
+// 18
+union MyIdentity {
     char name[50];
-    int age;
-    float height;
+    int idNumber;
+    int phoneNumber;
 };
- int main(){
-    struct person person1 = {"John Doe", 30, 5.9};
-    struct person person2 = {"Jane Smith", 25, 5.5};
-    struct person person3 = {"Alice Johnson", 28, 5.7};
+int main() {
+    union MyIdentity identity;
+    
+    strcpy(identity.name, "Daniel Osayemi");
+    printf("Name: %s\n", identity.name);
 
-    printf("Person 1: %s, Age: %d, Height: %.2f\n", person1.name, person1.age, person1.height);
-    printf("Person 2: %s, Age: %d, Height: %.2f\n", person2.name, person2.age, person2.height);
-    printf("Person 3: %s, Age: %d, Height: %.2f\n", person3.name, person3.age, person3.height);
+    identity.idNumber = 123456789;
+    printf("ID Number: %d\n", identity.idNumber);
+
+    identity.phoneNumber = 987654321;
+    printf("Phone Number: %d\n", identity.phoneNumber);
     return 0;
-};
-
-
+}
