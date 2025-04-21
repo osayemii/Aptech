@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Form Validation</title>
+    <script>
+        function validateForm() {
+            const name = document.forms["myForm"]["name"].value;
+            const email = document.forms["myForm"]["email"].value;
+            const password = document.forms["myForm"]["password"].value;
+            const phone = document.forms["myForm"]["phone"].value;
+
+            // Validate Name
+            if (name.trim() === "") {
+                alert("Name is required.");
+                return false;
+            }
+
+            // Validate Email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Invalid email format.");
+                return false;
+            }
+
+            // Validate Password
+            const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+            if (!passwordPattern.test(password)) {
+                alert("Password must be at least 8 characters long, include an uppercase letter, a number, and a special character.");
+                return false;
+            }
+
+            // Validate Phone Number
+            const phonePattern = /^\+?\d{10,13}$/; // International phone format
+            if (!phonePattern.test(phone)) {
+                alert("Phone number must be 10-13 digits long and may include a '+' prefix.");
+                return false;
+            }
+
+            alert("Form submitted successfully!");
+            return true;
+        }
+
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            const toggleButton = document.getElementById("togglePassword");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButton.textContent = "Hide Password";
+            } else {
+                passwordField.type = "password";
+                toggleButton.textContent = "Show Password";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Enhanced Sample Form</h2>
+    <form name="myForm" onsubmit="return validateForm()">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password">
+        <button type="button" id="togglePassword" onclick="togglePasswordVisibility()">Show Password</button><br><br>
+
+        <label for="phone">Phone Number:</label><br>
+        <input type="tel" id="phone" name="phone"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
