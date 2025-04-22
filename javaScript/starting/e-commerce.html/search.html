@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="search" placeholder="Search...">
+    <div class="product" data-name="Laptop">Laptop</div>
+    <div class="product" data-name="Phone">Phone</div>
+    <div class="product" data-name="AC">AC</div>
+    <div class="product" data-name="TV">TV</div>
+    <div class="product" data-name="Blender">Blender</div>
+    <div class="product" data-name="PS 5">PS 5</div>
+
+    <script>
+        document.getElementById('search').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase();
+                if (productName.includes(searchValue)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
