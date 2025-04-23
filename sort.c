@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 // Function to perform Selection Sort
-void selectionSort(int arr[], int n) {
+void swap(int arr[], int n) {
     int i, j, min_idx;
 
     for (i = 0; i < n - 1; i++) {
@@ -32,13 +32,13 @@ void printArray(int arr[], int size) {
 }
 
 int main() {
-    int arr[] = {7, 2, 8, 4, 1, 6, 3}; // Sample unsorted array
+    int arr[] = {64, 34, 25, 12, 22, 11, 90}; // Sample unsorted array
     int n = sizeof(arr) / sizeof(arr[0]);
 
     printf("Original array:\n");
     printArray(arr, n);
 
-    selectionSort(arr, n);
+    swap(arr, n);
 
     printf("Sorted array:\n");
     printArray(arr, n);
