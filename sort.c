@@ -39,7 +39,6 @@ int main() {
     printArray(arr, n);
 
     swap(arr, n);
-
     printf("Sorted array:\n");
     printArray(arr, n);
 

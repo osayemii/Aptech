@@ -1,298 +1,300 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-}
-
-section {
-    overflow-x: hidden;
-    width: 1200px;
-    margin: 0 auto;
-}
-
-.innBtns {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.innBtns svg {
-    width: 15px;
-    height: 15px;
-    margin-left: 10px;
-}
-
-header {
-    position: fixed;
-    width: 1200px;
-    padding: 10px;
-    text-align: right;
-    font-size: 18px;
-    background: #ccc;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
-    z-index: 1;
-}
-
-header button {
-    padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 12px;
-    background: #000;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: ease-in-out 0.3s;
-}
-
-header button:hover {
-    background: #fff;
-    color: #000;
-    border: 1px solid;
-}
-
-.cartt {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-}
-
-.cartt a {
-    margin-left: 30px;
-    margin-right: 10px;
-    /* text-decoration: none;
-  color: #000;
-  font-weight: 600; */
-}
-
-.btns {
-    /* position: absolute; */
-    position: relative;
-}
-
-#products {
-    width: 1080px;
-    margin: 0 auto;
-    /* border: 1px solid; */
-    padding-top: 60px;
-    align-items: flex-start;
-    display: flex;
-    flex-wrap: wrap;
-    /* justify-content: space-between; */
-}
-
-.product {
-    width: 200px;
-    /* height: 210px; */
-    margin-inline: 10px 5px;
-    padding-bottom: 5px;
-    border: 1px solid;
-    margin-bottom: 20px;
-}
-
-.homeDisImage {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid;
-    margin: 0 auto;
-    max-height: 150px;
-    cursor: pointer;
-}
-
-.homeDisImage img {
-    width: 90%;
-    height: 130px;
-    object-fit: cover;
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-    transition: ease-in-out 0.3s;
-}
-
-.homeDisImage img:hover {
-    transform: scale(0.9);
-    transition: ease-in-out 0.3s;
-}
-
-.homeDisbtn {
-    display: flex;
-    justify-content: space-between;
-    padding: 2px 4px 0 4px;
-    font-size: 12px;
-    /* border: 1px solid; */
-    align-items: center;
-}
-
-.homeDisbtn p {
-    max-width: 60%;
-}
-
-.homeDisbtn button {
-    padding: 5px;
-    margin-left: 10px;
-    border-radius: 3px;
-    font-size: 10px;
-    background: #000;
-    color: #fff;
-    border: none;
-    margin-top: 5px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: ease-in-out 0.3s;
-}
-
-.homeDisbtn button:hover {
-    background: #fff;
-    color: #000;
-    border: 1px solid;
-}
-
-.logOut {
-    width: 100%;
-    background: #777;
-    height: 50px;
-    position: relative;
-}
-
-#del,
-#log {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-#logOutBtn,
-#delAcctBtn {
-    position: absolute;
-    border: 2px solid transparent;
-    position: fixed;
-    z-index: 10;
-    margin-top: 60px;
-    display: none;
-    border: none;
-    font-size: 15px;
-    background: transparent;
-    font-weight: 600;
-    color: #000;
-    cursor: pointer;
-}
-
-#logOutBtn:hover,
-#delAcctBtn:hover {
-    border-bottom: 2px solid #000;
-    transition: ease-in-out 0.5s;
-}
-
-#delWarn,
-#logWarn {
-    display: none;
-    position: absolute;
-    position: fixed;
-    text-align: center;
-    z-index: 100;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    width: 300px;
-    margin: 0 auto;
-    /* height: 50px; */
-    background: #fff;
-    border-radius: 5px 0 5px 5px;
-}
-
-#delWarn h3,
-#logWarn h3 {
-    font-size: 11px;
-    font-weight: 600;
-    color: #000;
-    outline: none;
-    margin-bottom: 20px;
-}
-
-#delWarn .btn,
-#logWarn .btn {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-#delWarn svg,
-#logWarn svg {
-    width: 20px;
-    height: 20px;
-    color: #000;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 3px;
-    border-radius: 50%;
-}
-
-#delWarn svg:hover,
-#logWarn svg:hover {
-    cursor: pointer;
-    background: #ff0000e4;
-    color: #fff;
-}
-
-#delWarn button,
-#logWarn button {
-    width: 30%;
-    background: #000;
-    color: #fff;
-    border: 1px solid transparent;
-    transition: ease-in-out 0.5s;
-    padding: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#delWarn button:hover,
-#logWarn button:hover {
-    background: #fff;
-    color: #000;
-    border: 1px solid;
-}
-
-#delWarn p {
-    font-size: 9px;
-    color: #000;
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-
-#cartID {
-    display: flex;
-    text-decoration: none;
-    align-items: top;
-    font-size: 11px;
-    color: #000;
-    font-weight: 600;
-    transition: ease-in-out 0.5s;
-}
-
-#cartID:hover {
-    text-decoration: none;
-    color: #00ff;
-}
-
-#cartID svg {
-    width: 25px;
-    height: 25px;
-    margin-right: .5px;
+@media only screen and (min-width: 1200px) {
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+    
+    section {
+        overflow-x: hidden;
+        width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .innBtns {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .innBtns svg {
+        width: 15px;
+        height: 15px;
+        margin-left: 10px;
+    }
+    
+    header {
+        position: fixed;
+        width: 1200px;
+        padding: 10px;
+        text-align: right;
+        font-size: 18px;
+        background: #ccc;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        z-index: 1;
+    }
+    
+    header button {
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 12px;
+        background: #000;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: ease-in-out 0.3s;
+    }
+    
+    header button:hover {
+        background: #fff;
+        color: #000;
+        border: 1px solid;
+    }
+    
+    .cartt {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+    }
+    
+    .cartt a {
+        margin-left: 30px;
+        margin-right: 10px;
+        /* text-decoration: none;
+      color: #000;
+      font-weight: 600; */
+    }
+    
+    .btns {
+        /* position: absolute; */
+        position: relative;
+    }
+    
+    #products {
+        width: 1080px;
+        margin: 0 auto;
+        /* border: 1px solid; */
+        padding-top: 60px;
+        align-items: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        /* justify-content: space-between; */
+    }
+    
+    .product {
+        width: 200px;
+        /* height: 210px; */
+        margin-inline: 10px 5px;
+        padding-bottom: 5px;
+        border: 1px solid;
+        margin-bottom: 20px;
+    }
+    
+    .homeDisImage {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid;
+        margin: 0 auto;
+        max-height: 150px;
+        cursor: pointer;
+    }
+    
+    .homeDisImage img {
+        width: 90%;
+        height: 130px;
+        object-fit: cover;
+        margin: 10px;
+        display: flex;
+        justify-content: center;
+        transition: ease-in-out 0.3s;
+    }
+    
+    .homeDisImage img:hover {
+        transform: scale(0.9);
+        transition: ease-in-out 0.3s;
+    }
+    
+    .homeDisbtn {
+        display: flex;
+        justify-content: space-between;
+        padding: 2px 4px 0 4px;
+        font-size: 12px;
+        /* border: 1px solid; */
+        align-items: center;
+    }
+    
+    .homeDisbtn p {
+        max-width: 60%;
+    }
+    
+    .homeDisbtn button {
+        padding: 5px;
+        margin-left: 10px;
+        border-radius: 3px;
+        font-size: 10px;
+        background: #000;
+        color: #fff;
+        border: none;
+        margin-top: 5px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: ease-in-out 0.3s;
+    }
+    
+    .homeDisbtn button:hover {
+        background: #fff;
+        color: #000;
+        border: 1px solid;
+    }
+    
+    .logOut {
+        width: 100%;
+        background: #777;
+        height: 50px;
+        position: relative;
+    }
+    
+    #del,
+    #log {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    
+    #logOutBtn,
+    #delAcctBtn {
+        position: absolute;
+        border: 2px solid transparent;
+        position: fixed;
+        z-index: 10;
+        margin-top: 60px;
+        display: none;
+        border: none;
+        font-size: 15px;
+        background: transparent;
+        font-weight: 600;
+        color: #000;
+        cursor: pointer;
+    }
+    
+    #logOutBtn:hover,
+    #delAcctBtn:hover {
+        border-bottom: 2px solid #000;
+        transition: ease-in-out 0.5s;
+    }
+    
+    #delWarn,
+    #logWarn {
+        display: none;
+        position: absolute;
+        position: fixed;
+        text-align: center;
+        z-index: 100;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        width: 300px;
+        margin: 0 auto;
+        /* height: 50px; */
+        background: #fff;
+        border-radius: 5px 0 5px 5px;
+    }
+    
+    #delWarn h3,
+    #logWarn h3 {
+        font-size: 11px;
+        font-weight: 600;
+        color: #000;
+        outline: none;
+        margin-bottom: 20px;
+    }
+    
+    #delWarn .btn,
+    #logWarn .btn {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    #delWarn svg,
+    #logWarn svg {
+        width: 20px;
+        height: 20px;
+        color: #000;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 3px;
+        border-radius: 50%;
+    }
+    
+    #delWarn svg:hover,
+    #logWarn svg:hover {
+        cursor: pointer;
+        background: #ff0000e4;
+        color: #fff;
+    }
+    
+    #delWarn button,
+    #logWarn button {
+        width: 30%;
+        background: #000;
+        color: #fff;
+        border: 1px solid transparent;
+        transition: ease-in-out 0.5s;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    #delWarn button:hover,
+    #logWarn button:hover {
+        background: #fff;
+        color: #000;
+        border: 1px solid;
+    }
+    
+    #delWarn p {
+        font-size: 9px;
+        color: #000;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+    
+    #cartID {
+        display: flex;
+        text-decoration: none;
+        align-items: top;
+        font-size: 11px;
+        color: #000;
+        font-weight: 600;
+        transition: ease-in-out 0.5s;
+    }
+    
+    #cartID:hover {
+        text-decoration: none;
+        color: #00ff;
+    }
+    
+    #cartID svg {
+        width: 25px;
+        height: 25px;
+        margin-right: .5px;
+    }
 }

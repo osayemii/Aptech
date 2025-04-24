@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown Timer</title>
+    <style>
+        /* Basic page styling */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        
+        /* Container for the timer */
+        .timer-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+        
+        /* Header styling */
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        /* Main timer display */
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e63946;
+            margin: 1rem 0;
+        }
+        
+        /* Style for when sale ends */
+        .sale-ended {
+            color: #666;
+            font-size: 1.5rem;
+        }
+        
+        /* Progress bar container */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 1rem 0;
+            height: 10px;
+        }
+        
+        /* Actual progress bar */
+        .progress-bar {
+            height: 100%;
+            border-radius: 5px;
+            background-color: #e63946;
+            width: 100%;
+            transition: width 1s linear;
+        }
+        
+        /* Container for individual time units */
+        .time-units {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        
+        /* Each time unit box */
+        .time-unit {
+            flex: 1;
+            padding: 0.5rem;
+        }
+        
+        /* The number value */
+        .time-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e63946;
+        }
+        
+        /* The label below each number */
+        .time-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main container for all timer elements -->
+    <div class="timer-container">
+        <!-- Title/header -->
+        <h1>Flash Sale Ends In:</h1>
+        
+        <!-- Main timer display (shows full countdown) -->
+        <div id="timer"></div>
+        
+        <!-- Progress bar elements -->
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+        
+        <!-- Container for individual time units -->
+        <div class="time-units">
+            <!-- Days display -->
+            <div class="time-unit">
+                <div id="days" class="time-value">00</div>
+                <div class="time-label">Days</div>
+            </div>
+            
+            <!-- Hours display -->
+            <div class="time-unit">
+                <div id="hours" class="time-value">00</div>
+                <div class="time-label">Hours</div>
+            </div>
+            
+            <!-- Minutes display -->
+            <div class="time-unit">
+                <div id="minutes" class="time-value">00</div>
+                <div class="time-label">Minutes</div>
+            </div>
+            
+            <!-- Seconds display -->
+            <div class="time-unit">
+                <div id="seconds" class="time-value">00</div>
+                <div class="time-label">Seconds</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set the end date/time for the sale (April 30, 2025 at midnight)
+        // getTime() converts it to milliseconds since Jan 1, 1970
+        const saleEnd = new Date('2025-04-23T13:57:00').getTime();
+        
+        // Set the start date/time for the sale (for progress bar calculation)
+        const saleStart = new Date('2025-04-23T13:56:00').getTime();
+        
+        // Get reference to the main timer display element
+        const timerDisplay = document.getElementById('timer');
+        
+        // Get reference to the progress bar element
+        const progressBar = document.getElementById('progressBar');
+        
+        // Get references to all individual time unit displays
+        const daysElement = document.getElementById('days');
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+
+        // Create a countdown timer that updates every second (1000ms)
+        const countdown = setInterval(() => {
+            // Get current date/time in milliseconds
+            const now = new Date().getTime();
+            
+            // Calculate time remaining until sale ends (in ms)
+            const distance = saleEnd - now;
+            
+            // Calculate total duration of the sale (in ms)
+            const totalDuration = saleEnd - saleStart;
+            
+            // Calculate how much time has passed since sale started (in ms)
+            const elapsed = now - saleStart;
+            
+            // Calculate progress percentage (0-100)
+            // First calculate percentage completed, then subtract from 100
+            // to get percentage remaining
+            let progress = 100 - (elapsed / totalDuration * 100);
+            
+            // Ensure progress stays between 0 and 100 using Math.max/min
+            progress = Math.max(0, Math.min(100, progress));
+            
+            // Update the progress bar width
+            progressBar.style.width = `${progress}%`;
+
+            // Check if sale has ended (distance is negative)
+            if (distance < 0) {
+                // Stop the countdown timer
+                clearInterval(countdown);
+                
+                // Update display to show sale has ended
+                timerDisplay.textContent = 'Sale Ended!';
+                timerDisplay.className = 'sale-ended';
+                
+                // Set progress bar to 0%
+                progressBar.style.width = '0%';
+                
+                // Exit the function early
+                return;
+            }
+
+            // Calculate time units remaining:
+            
+            // Days: total ms / ms in one day
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            
+            // Hours: remainder from days / ms in one hour
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            
+            // Minutes: remainder from hours / ms in one minute
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            
+            // Seconds: remainder from minutes / ms in one second
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Update the main timer display with all units
+            timerDisplay.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            
+            // Update individual time unit displays
+            // padStart ensures 2-digit format (e.g., "05" instead of "5")
+            daysElement.textContent = days.toString().padStart(2, '0');
+            hoursElement.textContent = hours.toString().padStart(2, '0');
+            minutesElement.textContent = minutes.toString().padStart(2, '0');
+            secondsElement.textContent = seconds.toString().padStart(2, '0');
+            
+        }, 1000); // Run this function every 1000ms (1 second)
+    </script>
+</body>
+</html>
