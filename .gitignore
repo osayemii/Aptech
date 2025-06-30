@@ -1,3 +1,6 @@
 .env
 *.exe
+*.class
+*.vscode
+*.log
 node_modulus/
