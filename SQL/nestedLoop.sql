@@ -1,0 +1,51 @@
+USE AdventureWorks2022;
+
+DECLARE @personID INT = 999;
+DECLARE @title VARCHAR(10);
+
+SELECT @title = Title FROM Person.Person
+WHERE BusinessEntityID = @personID;
+
+IF @title IS NOT NULL
+BEGIN
+	IF @title = 'Mr.'
+		PRINT 'HELLO SIR!'
+	ELSE IF @title = 'Ms.' OR @title = 'Mrs.'
+		PRINT 'HELLO MA`AM!'
+	ELSE
+		PRINT 'HELLO, TITLED PERSON!'
+END
+
+GO
+
+--PRODUCT DELIVERY
+DECLARE @SalesOrderID INT = 43659;
+DECLARE @OrderDate DATE;
+DECLARE @DayOld INT;
+DECLARE @TotalDue MONEY
+
+SELECT @OrderDate = OrderDate FROM Sales.SalesOrderHeader
+WHERE SalesOrderID = @SalesOrderID;
+
+SET @DayOld = DATEDIFF(DAY, @OrderDate, GETDATE())
+
+IF @DayOld <= 30
+BEGIN
+	PRINT 'THIS IS RECENT (LESS THAN 30 DAYS OLD).'
+
+	IF @TotalDue > 1000
+		PRINT 'THIS IS A HIGH-VALUE RECENT ORDER.'
+	ELSE
+		PRINT 'THIS IS NORMAL RECENT ORDER.'
+END
+ELSE IF @OrderDate IS NULL
+BEGIN
+	SELECT 'THERE IS NO ORDER WITH SUCH  ID' AS OrderDateIsNull;
+END
+ELSE
+BEGIN
+	PRINT 'ORDER IS OLDER THAN 30 DAYS.'
+
+	IF @TotalDue <    1000
+		PRINT 'HIGH-VALUE ORDER, BUT NOT RECENT.'
+END
