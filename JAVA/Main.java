@@ -1,42 +1,35 @@
-abstract class Vehicle {
-    protected String model;
-    public Vehicle(String model) {
-        this.model = model;
-    }
-    // Abstract method
-    abstract void start();
-    // Concrete method
-    public void display() {
-        System.out.println("Model: " + model);
-    }
-
-}
-
-// Interface
-interface Rentable {
-    double calculateRentalPrice(int days);
-}
-
-// Concrete class implementing the abstract class and interface
-class Car extends Vehicle implements Rentable {
-    public Car(String model) {
-        super(model);
-    }
-    @Override
-    void start() {
-        System.out.println("Car " + model + " is starting.");
-    }
-    @Override
-    public double calculateRentalPrice(int days) {
-        return days * 50.0; // Example rental price calculation
-    }
-}
-
 public class Main {
     public static void main(String[] args) {
-        Car car = new Car("Toyota Corolla");
-        car.start();
-        car.display();
-        System.out.println("Rental price for 5 days: $" + car.calculateRentalPrice(5));
+        // LOGICAL
+        Boolean x = true, y = false;
+        System.out.println(x && y);
+
+        // ASSIGNMENT OPERATOR
+        int c =5;
+        c += 3; 
+        System.out.printf("Answer: %d\n", c);
+
+        // BITWISE convert to binary
+        int a = 5; // 0101
+        int b = 3; // 0011
+                   // 0001
+        System.out.printf("Bitwise: %d\n", a & b);
+
+        // TERNARY
+        int d = 12;
+        int e = 10;
+        int max = (d > e) ? d : e;
+        System.out.printf("Max: %d\n", max);
+
+        // TYPE CASTING
+        // Implicit
+        int i = 100;
+        double u = i;
+        System.out.println("Implicit: " + u);
+
+        // Explicit
+        double k = 3.99;
+        int l = (int)k;
+        System.out.println("Explicit: "+ l);
     }
 }
