@@ -4,3 +4,4 @@
 *.vscode
 *.log
 node_modulus/
+*.json

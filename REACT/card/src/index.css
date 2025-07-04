@@ -1,0 +1,14 @@
+.card {
+  border: 1px solid rgba(84, 83, 83, 0.694);
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  max-width: 250px;
+  display: inline-block;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgb(202, 202, 202);
+}
+.card img{
+  width: 60%;
+  border-radius: 50%;
+}
