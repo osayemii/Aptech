@@ -1,4 +1,4 @@
-public class Main {
+public class JavaOperators {
     public static void main(String[] args) {
         // LOGICAL
         Boolean x = true, y = false;
